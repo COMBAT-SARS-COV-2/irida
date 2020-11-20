@@ -2,6 +2,7 @@ package ca.corefacility.bioinformatics.irida.ria.unit.web;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.junit.Before;
@@ -51,7 +52,7 @@ public class LineListControllerTest {
 	@Test
 	public void testGetAllProjectMetadataEntries() {
 		long projectId = 1L;
-		lineListController.getProjectSamplesMetadataEntries(projectId);
+		lineListController.getProjectSamplesMetadataEntries(projectId, new ArrayList<>());
 		verify(sampleService, times(1)).getSamplesForProject(any(Project.class));
 	}
 }

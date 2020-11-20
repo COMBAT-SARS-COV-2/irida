@@ -74,7 +74,7 @@ public class LineListController {
 	 */
 	@RequestMapping(value = "/entries", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UISampleMetadata> getProjectSamplesMetadataEntries(@RequestParam long projectId, List<Long> fieldIds) {
+	public List<UISampleMetadata> getProjectSamplesMetadataEntries(@RequestParam long projectId, @RequestParam(required = false, defaultValue = "") List<Long> fieldIds) {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		Project project = projectService.read(projectId);
@@ -82,7 +82,7 @@ public class LineListController {
 		List<Join<Project, Sample>> projectSamples = sampleService.getSamplesForProject(project);
 		return projectSamples.stream()
 				.map(join -> {
-					ProjectSampleJoin psj = (ProjectSampleJoin)join;
+					ProjectSampleJoin psj = (ProjectSampleJoin) join;
 					Set<MetadataEntry> metadata = sampleService.getMetadataForSample(psj.getObject());
 					return new UISampleMetadata(psj, updateSamplePermission.isAllowed(authentication, psj.getObject()), metadata);
 				})
