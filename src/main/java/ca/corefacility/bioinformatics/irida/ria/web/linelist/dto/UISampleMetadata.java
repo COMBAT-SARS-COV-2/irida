@@ -1,14 +1,14 @@
 package ca.corefacility.bioinformatics.irida.ria.web.linelist.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import ca.corefacility.bioinformatics.irida.model.joins.impl.ProjectSampleJoin;
 import ca.corefacility.bioinformatics.irida.model.project.Project;
 import ca.corefacility.bioinformatics.irida.model.sample.Sample;
 import ca.corefacility.bioinformatics.irida.model.sample.StaticMetadataTemplateField;
 import ca.corefacility.bioinformatics.irida.model.sample.metadata.MetadataEntry;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Represents {@link Sample} metadata in the linelist table.
@@ -28,17 +28,23 @@ public class UISampleMetadata extends HashMap<String, String> {
 		Project project = join.getSubject();
 		Sample sample = join.getObject();
 
-		this.put(SAMPLE_ID, String.valueOf(sample.getId()));
-		this.put(SAMPLE_NAME, sample.getLabel());
-		this.put(PROJECT_ID, String.valueOf(project.getId()));
-		this.put(PROJECT_NAME, project.getLabel());
-		this.put(CREATED_DATE, sample.getCreatedDate()
-				.toString());
-		this.put(MODIFIED_DATE, sample.getModifiedDate()
-				.toString());
+		// ALWAYS NEED SAMPLE NAME AND ID
+		this.put("id", String.valueOf(sample.getId()));
+		this.put("name", sample.getLabel());
+
 		this.putAll(getAllMetadataForSample(metadata));
-		this.put(EDITABLE, String.valueOf(canModifySample));
-		this.put(OWNER, String.valueOf(join.isOwner()));
+
+//		this.put(SAMPLE_ID, String.valueOf(sample.getId()));
+//		this.put(SAMPLE_NAME, sample.getLabel());
+//		this.put(PROJECT_ID, String.valueOf(project.getId()));
+//		this.put(PROJECT_NAME, project.getLabel());
+//		this.put(CREATED_DATE, sample.getCreatedDate()
+//				.toString());
+//		this.put(MODIFIED_DATE, sample.getModifiedDate()
+//				.toString());
+//		this.putAll(getAllMetadataForSample(metadata));
+//		this.put(EDITABLE, String.valueOf(canModifySample));
+//		this.put(OWNER, String.valueOf(join.isOwner()));
 	}
 
 	/**
