@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setBaseUrl } from "../../utilities/url-utilities";
+import { cartNotification } from "../../utilities/events-utilities";
 
 const AJAX_URL = setBaseUrl(`/ajax/cart`);
 
@@ -15,7 +16,8 @@ export const putSampleInCart = async (projectId, samples) =>
       projectId,
       sampleIds: samples.map((s) => s.id),
     })
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .then((count) => cartNotification({ count }));
 
 /**
  * Get the current number of samples in the cart
