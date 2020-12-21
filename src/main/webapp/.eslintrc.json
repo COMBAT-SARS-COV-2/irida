@@ -11,7 +11,11 @@
     "react/prop-types": 0,
     "no-console": "warn",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": [
+      "warn", {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ]
   },
   "globals": {
     "i18n": "readonly"

@@ -10,21 +10,9 @@ import { LaunchContent } from "./LaunchContent";
  * @constructor
  */
 export function LaunchPage() {
-  const [{ loading }] = useLaunch();
-
-  const content = loading ? <Skeleton /> : <LaunchContent />;
-
   return (
-    <Row>
-      <Col
-        xxl={{ span: 16, offset: 4 }}
-        xl={{ span: 20, offset: 2 }}
-        style={{ marginTop: SPACE_LG }}
-      >
-        <Spin spinning={loading} delay={500}>
-          {content}
-        </Spin>
-      </Col>
-    </Row>
+    <React.Suspense fallback={<div>loading ....</div>}>
+      <LaunchContent />
+    </React.Suspense>
   );
 }
